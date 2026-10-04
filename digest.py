@@ -8,7 +8,7 @@ import feedparser
 from google import genai
 
 # ---------- Settings you can change ----------
-MODEL = os.getenv("GEMINI_MODEL", "gemini-3.8-flash")  # check AI Studio for current free models
+MODELS = ["gemini-3.8-flash", "gemini-3.7-flash", "gemini-3.6-flash", "gemini-3.5-flash-lite"]  # check AI Studio for current free models
 INTERESTS = "computer science, AI, Polymath Topics, Philosphy, Pakistan news"
 HOURS = 24          # how far back to look for new articles
 MAX_ITEMS = 60      # cap on articles sent to the AI
@@ -51,14 +51,15 @@ Use plain text only, no markdown.
 Articles:
 """ + "\n".join(items)
 
-    # Retry a few times in case of rate limits (429)
-    for attempt in range(3):
-        try:
-            return client.models.generate_content(model=MODEL, contents=prompt).text
-        except Exception as e:
-            print(f"Gemini error (attempt {attempt + 1}): {e}")
-            time.sleep(30 * (attempt + 1))
-    raise RuntimeError("Gemini failed after 3 attempts")
+    for model in MODELS:
+        for attempt in range(2):
+            try:
+                print(f"Trying {model} (attempt {attempt + 1})")
+                return client.models.generate_content(model=model, contents=prompt).text
+            except Exception as e:
+                print(f"{model} error: {e}")
+                time.sleep(20)
+    raise RuntimeError("All Gemini models failed")
 
 
 def send_email(text):
