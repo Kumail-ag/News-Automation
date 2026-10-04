@@ -1,1 +1,2 @@
-
+https://feeds.bbci.co.uk/news/rss.xml
+https://www.dawn.com/feeds/home/
