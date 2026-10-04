@@ -1,0 +1,26 @@
+name: Daily digest
+
+on:
+  schedule:
+    - cron: "0 2 * * *"   # UTC time. 02:00 UTC = 07:00 in Pakistan (UTC+5)
+  workflow_dispatch:       # lets you run it manually from the Actions tab
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install feedparser google-genai
+
+      - name: Run digest
+        run: python digest.py
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          EMAIL_ADDRESS: ${{ secrets.EMAIL_ADDRESS }}
+          EMAIL_APP_PASSWORD: ${{ secrets.EMAIL_APP_PASSWORD }}
