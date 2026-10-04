@@ -8,7 +8,7 @@ import feedparser
 from google import genai
 
 # ---------- Settings you can change ----------
-MODEL = os.getenv("GEMINI_MODEL", "gemini-3.5-flash-lite")  # check AI Studio for current free models
+MODEL = os.getenv("GEMINI_MODEL", "gemini-3.8-flash")  # check AI Studio for current free models
 INTERESTS = "computer science, AI, Polymath Topics, Philosphy, Pakistan news"
 HOURS = 24          # how far back to look for new articles
 MAX_ITEMS = 60      # cap on articles sent to the AI
