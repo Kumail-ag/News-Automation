@@ -36,7 +36,7 @@ def fetch_items():
         except Exception as e:
             print(f"Failed to read {url}: {e}")
             continue
-        for entry in feed.entries:
+        for entry in feed.entries[:8]:
             t = entry.get("published_parsed") or entry.get("updated_parsed")
             if t and calendar.timegm(t) < cutoff:
                 continue
