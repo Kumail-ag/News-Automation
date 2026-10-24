@@ -9,7 +9,16 @@ from google import genai
 
 # ---------- Settings you can change ----------
 MODELS = ["gemini-3.8-flash", "gemini-3.7-flash", "gemini-3.6-flash", "gemini-3.5-flash-lite"]  # check AI Studio for current free models
-INTERESTS = "computer science, AI, Polymath Topics, Philosphy, Pakistan news"
+INTERESTS = """Degree and year: BSCS, FAST-NUCES, first semester.
+Courses and weak areas: Programming Fundamentals, Calculus, Functional English, Ideology and Constitution of Pakistan, ICT. Weak: programming (stopped Python before OOP).
+Goals for the next 12 months (ranked by priority): 1) Fitness: lean muscle gain via home workouts. 2) Free-tool automation. 3) Calculus mastery. Also: communication, reading.
+Target countries/regions: Germany, US, Australia for postgraduate study after BSCS.
+Current skills and levels: Beginner Python, C++, HTML/CSS. Strong reader.
+Skills I want to build: Automation, calculus, communication, Urdu and English articulateness.
+Time available per week: About 7 hours for automation; evenings 6-10pm for reading and study; mornings 5:25-6:20 for exercise.
+Topics I want to see: Free automation tools, learning programming, calculus, muscle-gain nutrition, study-abroad requirements, analytically rich history.
+Topics to ignore completely: Trivia about countries or the world; history without analysis.
+What makes information useful to me: Free, actionable, evidence-based, analytical; no motivational fluff."""
 HOURS = 24          # how far back to look for new articles
 MAX_ITEMS = 60      # cap on articles sent to the AI
 # ---------------------------------------------
