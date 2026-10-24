@@ -1,3 +1,7 @@
-https://aeon.co/feed.atom
+https://realpython.com/atom.xml
+https://www.freecodecamp.org/news/rss/
+https://www.strongerbyscience.com/feed/
+https://hnrss.org/newest?q=automation&points=50
+https://www.scholars4dev.com/feed/
 https://aeon.co/feed.rss
-https://aeon.co/essays/feed.rss
+https://feeds.bbci.co.uk/urdu/rss.xml
