@@ -64,14 +64,32 @@ Articles:
 
 def send_email(text):
     address = os.environ["EMAIL_ADDRESS"]
+    password = os.environ["EMAIL_APP_PASSWORD"]
     msg = MIMEText(text, "plain", "utf-8")
     msg["Subject"] = "Your Daily Digest"
     msg["From"] = address
     msg["To"] = address
-    with smtplib.SMTP_SSL("smtp.gmail.com", 465) as server:
-        server.login(address, os.environ["EMAIL_APP_PASSWORD"])
-        server.send_message(msg)
 
+    for attempt in range(3):
+        # Method 1: port 465 (SSL)
+        try:
+            with smtplib.SMTP_SSL("smtp.gmail.com", 465, timeout=30) as server:
+                server.login(address, password)
+                server.send_message(msg)
+            return
+        except Exception as e:
+            print(f"SSL 465 failed (attempt {attempt + 1}): {e}")
+        # Method 2: port 587 (STARTTLS)
+        try:
+            with smtplib.SMTP("smtp.gmail.com", 587, timeout=30) as server:
+                server.starttls()
+                server.login(address, password)
+                server.send_message(msg)
+            return
+        except Exception as e:
+            print(f"STARTTLS 587 failed (attempt {attempt + 1}): {e}")
+        time.sleep(15)
+    raise RuntimeError("Could not send email after several attempts")
 
 if __name__ == "__main__":
     items = fetch_items()
