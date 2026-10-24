@@ -9,7 +9,7 @@ from google import genai
 
 # ---------- Settings you can change ----------
 MODELS = ["gemini-3.8-flash", "gemini-3.7-flash", "gemini-3.6-flash", "gemini-3.5-flash-lite"]  # check AI Studio for current free models
-INTERESTS = """Degree and year: BSCS, FAST-NUCES, first semester.
+PROFILE = """Degree and year: BSCS, FAST-NUCES, first semester.
 Courses and weak areas: Programming Fundamentals, Calculus, Functional English, Ideology and Constitution of Pakistan, ICT. Weak: programming (stopped Python before OOP).
 Goals for the next 12 months (ranked by priority): 1) Fitness: lean muscle gain via home workouts. 2) Free-tool automation. 3) Calculus mastery. Also: communication, reading.
 Target countries/regions: Germany, US, Australia for postgraduate study after BSCS.
