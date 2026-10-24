@@ -32,7 +32,7 @@ def fetch_items():
 
     for url in urls:
         try:
-            feed = feedparser.parse(url)
+            feed = feedparser.parse(url, agent="Mozilla/5.0 (digest-bot)")
         except Exception as e:
             print(f"Failed to read {url}: {e}")
             continue
@@ -49,13 +49,34 @@ def fetch_items():
 
 def summarize(items):
     client = genai.Client(api_key=os.environ["GEMINI_API_KEY"])
-    prompt = f"""You are my news assistant. I'm a university student interested in: {INTERESTS}.
-From the articles below, write a daily digest:
-1. Pick the 5-8 most relevant and important stories.
-2. For each: a one-line headline, a 1-2 sentence summary, and the link.
-3. Ignore duplicates, ads, and fluff.
-4. At the end, add a short "Deadlines & opportunities" section if any article mentions one.
-Use plain text only, no markdown.
+    prompt = f"""You are my personal research assistant. Here is my profile:
+{PROFILE}
+
+Below are new articles. Judge each one against my profile using this scoring:
+- 9-10: directly advances a top goal and I can act on it this week
+- 7-8: clearly useful for one of my goals
+- 0-6: general interest, trivia, news, hype, or off-topic. Discard.
+
+Rules:
+- Include ONLY articles scoring 7 or higher, at most 6 in total. Never pad the list.
+- Prefer evidence-based, practical, free resources. Reject motivational content and shallow listicles.
+- Use only what the article text says. If you only have a title, say "judged by title only".
+- If nothing scores 7+, reply only: "Nothing relevant today."
+
+Group the results under these headings (skip a heading if it has nothing):
+FITNESS | AUTOMATION | CALCULUS | PROGRAMMING | READING & COMMUNICATION | STUDY ABROAD
+
+For each article write:
+- Headline
+- Why it matters to me (one sentence tied to a specific goal or course)
+- Do this: one concrete action with a time estimate (e.g. "Read in the evening, 15 min" or "Try during morning workout")
+- Link
+
+End with:
+- DEADLINES: any dates mentioned, soonest first (skip if none)
+- TODAY'S ONE THING: the single most valuable action from this digest
+
+Plain text only, no markdown, no emojis.
 
 Articles:
 """ + "\n".join(items)
