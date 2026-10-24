@@ -1,2 +1,3 @@
-https://feeds.bbci.co.uk/news/rss.xml
-https://www.dawn.com/feeds/home/
+https://aeon.co/feed.atom
+https://aeon.co/feed.rss
+https://aeon.co/essays/feed.rss
